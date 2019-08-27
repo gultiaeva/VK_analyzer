@@ -1,25 +1,11 @@
 import re
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import emoji
-import numpy as np
-import collections
 
 
 class MessageExtractor():
+
     def __init__(self, messages_file):
-        self.stopwords = self._load_stopwords()
         self.path_to_messages = messages_file
-
-    def _load_stopwords(self):
-        '''
-        Function that loads stopwords
-        '''
-
-        with open('./data/stopwords', 'r') as f:
-            text = f.read()
-        return text.split()
 
     def _load_messages(self):
         msgs = []
@@ -34,10 +20,8 @@ class MessageExtractor():
             return msgs
     
     def _clean(self, messages):
-        fullmsgs = [' '.join(msg for msg in message.split('\n')[1:]) 
-            for message in messages]
-        datesnames = [''.join(msg for msg in message.split('\n')[0]) 
-            for message in messages]
+        fullmsgs = [' '.join(msg for msg in message.split('\n')[1:]) for message in messages]
+        datesnames = [''.join(msg for msg in message.split('\n')[0]) for message in messages]
         dates = [re.search(r'\(\d{2}:\d{2}:\d{2}  \d{2}/\d{2}/\d{4}\):', 
             datename).group(0)[1:-2] for datename in datesnames]
         names = [re.search(r'(.*)\(\d{2}:\d{2}:\d{2}  \d{2}/\d{2}/\d{4}\):', 
@@ -58,7 +42,11 @@ class MessageExtractor():
         return raw_data
 
     def extract_messages(self):
-        self.messages_df = self._clean(self._load_messages)
+        self.messages_df = self._clean(self._load_messages())
         return self.messages_df
 
 
+if __name__ == '__main__':
+    extractor = MessageExtractor('examples/messages.txt')
+    messages = extractor.extract_messages()
+    print(messages)
