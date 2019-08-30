@@ -1,10 +1,11 @@
+from os import mkdir
+from collections import Counter
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from collections import Counter
 import wordcloud
-from os import mkdir
+
 
 class Drawer():
     def __init__(self, data, persons=None):
