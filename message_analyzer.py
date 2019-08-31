@@ -27,5 +27,9 @@ class MessageAnalyzer():
 
 
 if __name__ == '__main__':
-    analyzer = MessageAnalyzer('./examples/messages.txt')
+    try: 
+        path_to_file = sys.argv[1]
+    except IndexError as e:
+        path_to_file = './examples/messages.txt'
+    analyzer = MessageAnalyzer(path_to_file)
     analyzer.analyze()

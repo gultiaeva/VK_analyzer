@@ -123,6 +123,7 @@ class Drawer():
                        pad_inches=0.5)
 
     def draw_all(self):
+        print('Drawing your plots:')
         with tqdm(total=100) as pbar:
             self.messages_per_person = self.draw_messages_per_person()
             pbar.update(12.5)
@@ -149,6 +150,7 @@ class Drawer():
 
         if not path.exists(directory):
             makedirs(directory)
+        print('Saving tour plots:')
         with tqdm(total=100) as pbar:
             self._save_figure(self.symbols_per_person,
                             path.join(directory, 'symbols_per_person.png'))
