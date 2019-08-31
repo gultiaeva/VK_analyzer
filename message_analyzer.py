@@ -19,7 +19,8 @@ class MessageAnalyzer():
         while True:
             choice = input()
             if choice in 'yY':
-                drawer.save_all()
+                path = input('Path to save: ')
+                drawer.save_all(path)
                 break
             elif choice in 'nN':
                 break
